@@ -87,34 +87,59 @@ function generateCabinImage() {
   const ctx = canvas.getContext('2d');
   const width = 400;
   const height = 800;
-  const topBorderHeight = 30;     // Extra top border
-  const bottomBorderHeight = 110; // Extra bottom border
+  const topBorderHeight = 30;
+  const bottomBorderHeight = 110;
+  const design = document.getElementById('diseno').value;
 
   canvas.width = width;
   canvas.height = height + bottomBorderHeight + topBorderHeight;
 
-  // Light orange background gradient
-  const backgroundGradient = ctx.createLinearGradient(0, 0, width, canvas.height);
-  backgroundGradient.addColorStop(0, '#ffc070');
-  backgroundGradient.addColorStop(1, '#ffa533');
-  ctx.fillStyle = backgroundGradient;
+  // Estilo de fondo
+  if (design === 'geometrico') {
+    const gradient = ctx.createLinearGradient(0, 0, width, canvas.height);
+    gradient.addColorStop(0, '#ffc070');
+    gradient.addColorStop(1, '#ffa533');
+    ctx.fillStyle = gradient;
+  } else if (design === 'corazones') {
+    ctx.fillStyle = '#ffd1dc'; // fondo rosado
+  }
 
-  // Final canvas with rounded corners
   ctx.save();
   ctx.beginPath();
   ctx.roundRect(0, 0, canvas.width, canvas.height, 20);
   ctx.clip();
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-  // Decorative white-ish geometric shapes
-  ctx.fillStyle = 'rgba(255, 255, 255, 0.25)';
-  for (let i = 0; i < 12; i++) {
-    ctx.beginPath();
-    const x = Math.random() * width;
-    const y = Math.random() * canvas.height;
-    const size = Math.random() * 70 + 30;
-    ctx.arc(x, y, size, 0, Math.PI * 2);
-    ctx.fill();
+  // Elementos decorativos
+  if (design === 'geometrico') {
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.25)';
+    for (let i = 0; i < 12; i++) {
+      ctx.beginPath();
+      const x = Math.random() * width;
+      const y = Math.random() * canvas.height;
+      const size = Math.random() * 70 + 30;
+      ctx.arc(x, y, size, 0, Math.PI * 2);
+      ctx.fill();
+    }
+  } else if (design === 'corazones') {
+    const heart = (x, y, size) => {
+      ctx.beginPath();
+      ctx.moveTo(x, y);
+      ctx.bezierCurveTo(x, y - size / 2, x - size, y - size / 2, x - size, y);
+      ctx.bezierCurveTo(x - size, y + size, x, y + size * 1.5, x, y + size * 2);
+      ctx.bezierCurveTo(x, y + size * 1.5, x + size, y + size, x + size, y);
+      ctx.bezierCurveTo(x + size, y - size / 2, x, y - size / 2, x, y);
+      ctx.closePath();
+      ctx.fill();
+    };
+
+    ctx.fillStyle = 'rgba(255, 0, 100, 0.3)';
+    for (let i = 0; i < 15; i++) {
+      const x = Math.random() * width;
+      const y = Math.random() * canvas.height;
+      const size = Math.random() * 15 + 10;
+      heart(x, y, size);
+    }
   }
 
   const photoHeight = height / totalPhotos;
@@ -127,7 +152,7 @@ function generateCabinImage() {
       const photoWidth = width - 2 * padding;
       const yPos = topBorderHeight + index * photoHeight + 10;
 
-      // 3D shadow effect behind each image
+      // Sombra
       ctx.save();
       ctx.beginPath();
       ctx.roundRect(padding + 4, yPos + 4, photoWidth + 5, photoHeight - 15, 10);
@@ -135,7 +160,7 @@ function generateCabinImage() {
       ctx.fill();
       ctx.restore();
 
-      // Cropped image with rounded corners
+      // Imagen recortada
       ctx.save();
       ctx.beginPath();
       ctx.roundRect(padding, yPos, photoWidth, photoHeight - 20, 10);
@@ -143,21 +168,22 @@ function generateCabinImage() {
       ctx.drawImage(img, padding, yPos, photoWidth, photoHeight - 20);
       ctx.restore();
 
-      // Enable download when the last image is loaded
+      // Habilitar descarga
       if (index === totalPhotos - 1) {
         const finalImage = canvas.toDataURL('image/png');
-        downloadBtn.addEventListener('click', () => {
+        downloadBtn.onclick = () => {
           const a = document.createElement('a');
           a.href = finalImage;
           a.download = 'h1Photos.png';
           a.click();
-        });
+        };
       }
     };
   });
 
   ctx.restore();
 }
+
 
 // Download button event listener
 downloadBtn.addEventListener('click', generateCabinImage);

@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Cabina de Fotos</title>
+  <link rel="shortcut icon" href="./icons/icon.svg" type="image/x-icon">
   <link rel="stylesheet" href="style/main.css">
 </head>
 <body>
@@ -16,6 +17,16 @@
         <option value="4">4 Fotos</option>
       </select>
     </div>
+
+    <div>
+      <label for="diseno">Selecciona el diseño:</label>
+      <select id="diseno">
+        <option value="geometrico">Geométrico (actual)</option>
+        <option value="corazones">Corazones</option>
+      </select>
+    </div>
+    
+
     <div id="camara-container">
       <video id="video" autoplay></video>
       <button id="startBtn">Iniciar sesión de fotos</button>
