@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cabina de Fotos</title>
+  <link rel="stylesheet" href="style/main.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Cabina de Fotos</h1>
+    <div>
+      <label for="numFotos">Selecciona el número de fotos (3 o 4): </label>
+      <select id="numFotos">
+        <option value="3">3 Fotos</option>
+        <option value="4">4 Fotos</option>
+      </select>
+    </div>
+    <div id="camara-container">
+      <video id="video" autoplay></video>
+      <button id="startBtn">Iniciar sesión de fotos</button>
+    </div>
+    <div id="contador">
+      <p>¡5!</p>
+    </div>
+    <div id="photos-container"></div>
+    <button id="downloadBtn">Descargar imagen final</button>
+  </div>
+
+  <script src="js/main.js"></script>
+  
+</body>
+</html>
