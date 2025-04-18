@@ -9,6 +9,8 @@ let photoCount = 0;
 let totalPhotos = 3;
 let photos = [];
 
+startCamera();
+
 // Function to start the webcam
 async function startCamera() {
   try {
@@ -74,7 +76,6 @@ startBtn.addEventListener('click', () => {
   contador.style.display = 'none';
   downloadBtn.style.display = 'none';
 
-  startCamera();
   startCountdown(capturePhoto);
   startBtn.disabled = true;
 });
@@ -141,7 +142,7 @@ function generateCabinImage() {
     ctx.fillStyle = '#ffffff'; // fondo blanco
     ctx.fillRect(0, 0, canvas.width, canvas.height);
   
-    // Líneas grises sutiles
+    // gray lines
     ctx.strokeStyle = '#e0e0e0';
     for (let i = 0; i < canvas.height; i += 40) {
       ctx.beginPath();
@@ -150,11 +151,11 @@ function generateCabinImage() {
       ctx.stroke();
     }
   
-    // Texto elegante
+    // text
     ctx.fillStyle = '#999';
     ctx.font = '20px sans-serif';
     ctx.textAlign = 'center';
-    ctx.fillText('H1 Photo Booth', canvas.width / 2, 25);
+    ctx.fillText('Photo Booth', canvas.width / 2, 25);
   }
   
 
@@ -222,13 +223,12 @@ function generateCabinImage() {
     snoopyImg.crossOrigin = 'anonymous';
     snoopyImg.src = 'https://upload.wikimedia.org/wikipedia/en/5/53/Snoopy_Peanuts.png';
     snoopyImg.onload = () => {
-      const numSnoopys = 50; // ¡Muchos Snoopys!
+      const numSnoopys = 25; // ¡Muchos Snoopys!
       for (let i = 0; i < numSnoopys; i++) {
-        const size = 30 + Math.random() * 50;
+        const size = 50 + Math.random() * 50;
         const x = Math.random() * (canvas.width - size);
-        const y = Math.random() * (canvas.height - size - 150);
+        const y = Math.pow(Math.random(), 1) * (canvas.height - size);
         ctx.save();
-        ctx.globalAlpha = 0.4 + Math.random() * 0.6; // Transparencias suaves
         ctx.drawImage(snoopyImg, x, y, size, size);
         ctx.restore();
       }
