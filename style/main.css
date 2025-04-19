@@ -93,6 +93,10 @@ button:hover {
   border: 2px solid #d1d5db;
 }
 
+.icon{
+  width: 25%;
+}
+
 #downloadBtn {
   display: none;
   margin-top: 2rem;
