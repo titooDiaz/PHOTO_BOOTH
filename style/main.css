@@ -135,7 +135,7 @@ button:hover {
   }
 }
 
-/* Contador en el centro */
+/* count in the center */
 #contador {
   position: fixed;
   top: 50%;
@@ -144,7 +144,6 @@ button:hover {
   font-size: 5rem;
   font-weight: bold;
   color: #dc2626;
-  background-color: rgba(255, 255, 255, 0.7);
   padding: 1rem 2rem;
   border-radius: 1rem;
   z-index: 10;
